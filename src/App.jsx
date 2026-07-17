@@ -30,7 +30,7 @@ const GALLERY_PHOTOS = [
 /* =========================================================================
    🗺️  오시는 길 약도 (base64 임베드)
    ========================================================================= */
-const MAP_IMAGE = "/images/map.jpg";
+const MAP_IMAGE = "/images/map2.jpg";
 
 /* =========================================================================
    📝 청첩장 데이터 — 이 부분만 수정하면 본인 청첩장으로 바뀝니다
@@ -112,9 +112,15 @@ const data = {
       {
         title: "안내 사항",
         lines: [
-          "화환은 반입이 불가하여 정중히 사양합니다",
-          "따뜻한 마음만 감사히 받겠습니다",
+          "화환은 반입이 불가하여 정중히 사양합니다. 따뜻한 마음만 감사히 받겠습니다",
           "전용주차장이 없으니 가급적 대중교통을 이용해주시기 바랍니다",
+        ],
+      },
+      {
+        title: "피로연 장소",
+        lines: [
+          "신랑측 : 고녀석 (서울 중구 퇴계로36길 9)",
+          "신부측 : 샤오리앤 (서울 중구 퇴계로 197)",
         ],
       },
     ],
@@ -264,7 +270,7 @@ function PhotoPlaceholder({ src, alt = "wedding photo", aspect = "1 / 1", onClic
           gap: 8,
           color: palette.accent,
           fontFamily: fontBody,
-          fontSize: 11,
+          fontSize: 12,
           letterSpacing: "0.3em",
         }}
       >
@@ -289,7 +295,7 @@ function SectionTitle({ eyebrow, title }) {
         <div
           style={{
             fontFamily: fontBody,
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: "0.4em",
             color: palette.accent,
             marginBottom: 12,
@@ -302,7 +308,7 @@ function SectionTitle({ eyebrow, title }) {
         style={{
           fontFamily: fontDisplay,
           fontWeight: 400,
-          fontSize: 24,
+          fontSize: 26,
           color: palette.ink,
           margin: 0,
           letterSpacing: "0.1em",
@@ -355,7 +361,7 @@ function Cover() {
       <div
         style={{
           fontFamily: fontDisplay,
-          fontSize: 34,
+          fontSize: 36,
           color: palette.ink,
           letterSpacing: "0.05em",
           lineHeight: 1.4,
@@ -690,7 +696,7 @@ function People() {
 
 const subhead = {
   fontFamily: fontBody,
-  fontSize: 11,
+  fontSize: 13,
   letterSpacing: "0.3em",
   color: palette.accent,
   marginBottom: 8,
@@ -715,7 +721,7 @@ function CalendarView() {
   while (cells.length % 7 !== 0) cells.push(null);
 
   const dayLabels = ["S", "M", "T", "W", "T", "F", "S"];
-  const monthName = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][month];
+  const monthName = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","","OCT","NOV","DEC"][month];
 
   return (
     <section style={{ padding: "0 28px 48px" }}>
@@ -738,7 +744,7 @@ function CalendarView() {
                 letterSpacing: "0.15em",
               }}
             >
-              {monthName} {year}
+              
             </div>
           </div>
 
@@ -1649,7 +1655,7 @@ audio.play()
       <style>{`
         .intro-script {
           font-family: 'Great Vibes', cursive;
-          font-size: 56px;
+          font-size: 66px;
           line-height: 1.05;
           color: #f7f3ec;
           text-align: center;
