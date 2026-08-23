@@ -20,12 +20,38 @@ const GALLERY_5 = "/images/5.jpg"
 const GALLERY_6 = "/images/6.jpg"
 const GALLERY_7 = "/images/7.jpg"
 const GALLERY_8 = "/images/8.jpg"
+const GALLERY_9 = "/images/9.jpg"
+const GALLERY_10 = "/images/10.jpg"
+const GALLERY_11 = "/images/11.jpg"
+const GALLERY_12 = "/images/12.jpg"
+const GALLERY_13 = "/images/13.jpg"
+const GALLERY_14 = "/images/14.jpg"
+const GALLERY_15 = "/images/15.jpg"
+const GALLERY_16 = "/images/16.jpg"
+const GALLERY_17 = "/images/17.jpg"
+const GALLERY_18 = "/images/18.jpg"
+const GALLERY_19 = "/images/19.jpg"
+const GALLERY_20 = "/images/20.jpg"
+const GALLERY_21 = "/images/21.jpg"
+const GALLERY_22 = "/images/22.jpg"
+const GALLERY_23 = "/images/23.jpg"
+const GALLERY_24 = "/images/24.jpg"
+const GALLERY_25 = "/images/25.jpg"
+
 
 const GALLERY_PHOTOS = [
   GALLERY_0, GALLERY_1, GALLERY_2,
   GALLERY_3, GALLERY_4, GALLERY_5,
   GALLERY_6, GALLERY_7, GALLERY_8,
+  GALLERY_9, GALLERY_10, GALLERY_11,
+  GALLERY_12, GALLERY_13, GALLERY_14,
+  GALLERY_15, GALLERY_16, GALLERY_17,
+  GALLERY_18, GALLERY_19, GALLERY_20,
+  GALLERY_21, GALLERY_22, GALLERY_23,
+  GALLERY_24, GALLERY_25
 ];
+
+const GALLERY_GRID_COUNT = 9; // 메인 화면(그리드)에 보여줄 개수
 
 /* =========================================================================
    🗺️  오시는 길 약도 (base64 임베드)
@@ -231,7 +257,7 @@ function Botanical({ size = 60, color = palette.sage, flip = false }) {
 /* =========================================================================
    사진 자리 (실제 사진이 없을 때 보여주는 placeholder)
    ========================================================================= */
-function PhotoPlaceholder({ src, alt = "wedding photo", aspect = "1 / 1", onClick }) {
+function PhotoPlaceholder({ src, alt = "wedding photo", aspect = "1 / 1", onClick, fit = "cover" }) {
   if (src) {
     return (
       <div
@@ -239,8 +265,10 @@ function PhotoPlaceholder({ src, alt = "wedding photo", aspect = "1 / 1", onClic
         style={{
           aspectRatio: aspect,
           backgroundImage: `url(${src})`,
-          backgroundSize: "cover",
+          backgroundSize: fit,
           backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundColor: fit === "contain" ? "#1a1613" : "transparent",
           cursor: onClick ? "pointer" : "default",
         }}
       />
@@ -869,21 +897,47 @@ function Gallery() {
     <section style={{ padding: "0 28px 48px" }}>
       <Reveal>
         <SectionTitle eyebrow="GALLERY" title="우리의 순간" />
-        <div
+                <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             gap: 6,
           }}
         >
-          {data.gallery.map((src, i) => (
-            <PhotoPlaceholder
-              key={i}
-              src={src}
-              onClick={() => setIdx(i)}
-              aspect="1 / 1"
-            />
-          ))}
+          {data.gallery.slice(0, GALLERY_GRID_COUNT).map((src, i) => {
+            const isLast = i === GALLERY_GRID_COUNT - 1;
+            const remaining = data.gallery.length - GALLERY_GRID_COUNT;
+            return (
+              <div key={i} style={{ position: "relative" }}>
+                <PhotoPlaceholder src={src} onClick={() => setIdx(i)} aspect="1 / 1" />
+                {isLast && remaining > 0 && (
+                  <div
+                    onClick={() => setIdx(i)}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "rgba(20,16,12,0.55)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "#fff",
+                        fontFamily: fontDisplay,
+                        fontSize: 20,
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      +{remaining}
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </Reveal>
 
@@ -938,7 +992,7 @@ function Gallery() {
                       paddingRight: 0,
                     }}
                   >
-                    <PhotoPlaceholder src={src} aspect="3 / 4" />
+                    <PhotoPlaceholder src={src} aspect="3 / 4" fit="contain"  />
                   </div>
                 ))}
               </div>
